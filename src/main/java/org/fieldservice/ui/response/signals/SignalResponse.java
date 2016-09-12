@@ -1,20 +1,23 @@
-package org.fieldservice.ui.signals.daily;
+package org.fieldservice.ui.response.signals;
 
 import org.fieldservice.ui.EquipmentStatusCode;
+import org.fieldservice.ui.Period;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class DailySignalResponse {
+public abstract class SignalResponse {
 
     private int statusCodeCount;
     private Long equipmentId;
     private EquipmentStatusCode equipmentStatusCode;
-    private Date entryDate;
 
-    public DailySignalResponse() {
+    public SignalResponse() {
     }
 
-    //TODO: returns the types you should return
+    protected abstract Period getPeriod();
+
+    protected abstract LocalDate getEntryDate();
+
     public int getStatusCodeCount() {
         return statusCodeCount;
     }
@@ -37,13 +40,5 @@ public class DailySignalResponse {
 
     public void setEquipmentStatusCode(String status) {
         equipmentStatusCode = EquipmentStatusCode.valueOf(status);
-    }
-
-    public Date getEntryDate() {
-        return entryDate;
-    }
-
-    public void setEntryDate(Date date) {
-        entryDate = date;
     }
 }

@@ -1,4 +1,4 @@
-package org.fieldservice.ui.signals.daily;
+package org.fieldservice.ui.response.signals;
 
 public class EquipmentResponse {
 

@@ -1,14 +1,14 @@
-package org.fieldservice.ui.signals.daily;
+package org.fieldservice.ui.response.signals;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class DailyCount {
 
     private final int _count;
-    private final Date _entryDate;
+    private final LocalDate _entryDate;
 
-    public DailyCount(int count, Date entryDate) {
+    public DailyCount(int count, LocalDate entryDate) {
         _count = count;
         _entryDate = entryDate;
     }
@@ -17,7 +17,7 @@ public class DailyCount {
         return _count;
     }
 
-    public Date getEntryDate() {
+    public LocalDate getEntryDate() {
         return _entryDate;
     }
 

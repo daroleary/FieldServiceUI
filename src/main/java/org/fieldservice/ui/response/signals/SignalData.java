@@ -1,20 +1,22 @@
-package org.fieldservice.ui.signals.daily;
+package org.fieldservice.ui.response.signals;
 
 import com.google.common.collect.ImmutableMultimap;
 import org.fieldservice.ui.EquipmentStatusCode;
+import org.fieldservice.ui.Period;
 import org.fieldservice.ui.util.GuavaCollectors;
 
 import java.util.List;
 
-public class DailySignalData {
+public class SignalData {
 
     private final ImmutableMultimap<EquipmentStatusCode, DailyCount> _dailyCountByEquipmentStatus;
 
-    public DailySignalData(List<DailySignalResponse> dailySignalResponses) {
-        _dailyCountByEquipmentStatus = dailySignalResponses.stream()
+    public <T extends SignalResponse> SignalData(List<T> signalResponses) {
+
+        _dailyCountByEquipmentStatus = signalResponses.stream()
                 .sorted(new DailySignalResponseComparator())
                 .collect(
-                        GuavaCollectors.toImmutableMultimap(DailySignalResponse::getEquipmentStatusCode,
+                        GuavaCollectors.toImmutableMultimap(SignalResponse::getEquipmentStatusCode,
                                                             dailySignalResponse -> new DailyCount(dailySignalResponse.getStatusCodeCount(),
                                                                                                   dailySignalResponse.getEntryDate())));
     }

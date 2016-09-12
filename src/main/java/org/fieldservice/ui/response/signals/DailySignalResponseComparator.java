@@ -1,13 +1,13 @@
-package org.fieldservice.ui.signals.daily;
+package org.fieldservice.ui.response.signals;
 
 import com.google.common.collect.ComparisonChain;
 
 import java.util.Comparator;
 
-public class DailySignalResponseComparator implements Comparator<DailySignalResponse> {
+public class DailySignalResponseComparator implements Comparator<SignalResponse> {
 
     @Override
-    public int compare(DailySignalResponse o1, DailySignalResponse o2) {
+    public int compare(SignalResponse o1, SignalResponse o2) {
         return ComparisonChain.start()
                 .compare(o1.getEquipmentStatusCode(), o2.getEquipmentStatusCode())
                 .compare(o1.getEntryDate(), o2.getEntryDate())

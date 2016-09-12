@@ -1,7 +1,9 @@
 package org.fieldservice.ui;
 
-import org.fieldservice.ui.signals.daily.DailySignalResponse;
-import org.fieldservice.ui.signals.daily.EquipmentResponse;
+import org.fieldservice.ui.response.signals.DailySignalResponse;
+import org.fieldservice.ui.response.signals.EquipmentResponse;
+import org.fieldservice.ui.response.signals.MonthlySignalResponse;
+import org.fieldservice.ui.response.signals.YearlySignalResponse;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -41,16 +43,28 @@ public class JsonService {
     }
 
     public List<DailySignalResponse> getDailySignalResponses(Long equipmentId) {
-        String path = MessageFormat.format("signals/daily/equipment/{0}", equipmentId);
-        return getSignals(path);
-    }
-
-    public List<DailySignalResponse> getSignals(String path) {
-        //TODO: make it generic
 
         //noinspection EmptyClass
-        return getWebTarget().path(path)
+        return getWebTarget().path("signals/daily/equipments" + getPostFix(equipmentId))
                 .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<DailySignalResponse>>(){});
+    }
+
+    public List<MonthlySignalResponse> getMonthlySignalResponses(Long equipmentId) {
+        //noinspection EmptyClass
+        return getWebTarget().path("signals/monthly/equipments" + getPostFix(equipmentId))
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<MonthlySignalResponse>>(){});
+    }
+
+    public List<YearlySignalResponse> getYearlySignalResponses(Long equipmentId) {
+        //noinspection EmptyClass
+        return getWebTarget().path("signals/yearly/equipments" + getPostFix(equipmentId))
+                .request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<YearlySignalResponse>>(){});
+    }
+
+    private String getPostFix(Long equipmentId) {
+        return equipmentId == null ? "" : MessageFormat.format("/{0}", equipmentId);
     }
 }
